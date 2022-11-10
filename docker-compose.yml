@@ -8,8 +8,6 @@ services:
     image: strori/testtask:0.0.1
     ports:
       - "80"
-    volumes:
-      - ./index.php:/var/www/html/index.php
     networks:
       - db
 
