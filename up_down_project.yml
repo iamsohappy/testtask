@@ -1,0 +1,42 @@
+- name: Up or down services, or scale app service
+  hosts: localhost
+  vars:
+    scale: 1
+    project_dir: /root/testtask
+  gather_facts: false
+  tasks:
+    - name: "Up services"
+      block:
+        - name: Start project directly via cli
+          command:
+            cmd: docker-compose up -d
+            chdir: "{{ project_dir }}"
+          register: output
+
+        - ansible.builtin.debug:
+            var: output
+      tags: up
+
+    - name: "Down services"
+      block:
+        - name: Down project directly via cli
+          command:
+            cmd: docker-compose down
+            chdir: "{{ project_dir }}"
+          register: output
+
+        - ansible.builtin.debug:
+            var: output
+      tags: down
+
+    - name: Scale service
+      block:
+        - name: Scale via cli
+          command:
+            cmd: docker-compose up -d --scale app="{{ scale }}"
+            chdir: "{{ project_dir }}"
+          register: output
+
+        - ansible.builtin.debug:
+            var: output
+      tags: scaleapp
