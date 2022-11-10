@@ -21,7 +21,7 @@
       block:
         - name: Down project directly via cli
           command:
-            cmd: docker-compose down
+            cmd: docker-compose down -v
             chdir: "{{ project_dir }}"
           register: output
 
